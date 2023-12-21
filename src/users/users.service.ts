@@ -34,12 +34,6 @@ export class UsersService {
     });
   }
 
-  findUserByPhone(phone: string) {
-    return this.usersRepository.findOneBy({
-      phone: Equal(phone),
-    });
-  }
-
   async getMyProfile(userId: string) {
     const user = await this.findUserById(userId);
 
@@ -94,12 +88,6 @@ export class UsersService {
 
     if (user) {
       throw new BadRequestException('This email is already registered');
-    }
-
-    user = await this.findUserByPhone(registerDto.phone);
-
-    if (user) {
-      throw new BadRequestException('This phone is already registered');
     }
 
     user = await this.createUser(registerDto);

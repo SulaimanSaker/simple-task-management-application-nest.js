@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
 import {
+  OneToMany,
   Entity,
   PrimaryGeneratedColumn,
   Column,
@@ -10,6 +11,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { Todo } from 'src/todos/entities/todo.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -17,19 +19,13 @@ export class User extends BaseEntity {
   id: string;
 
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
+  name: string;
 
   @Column({ unique: true })
   email: string;
 
-  @Column({ unique: true })
-  phone: string;
-
-  @Column({ nullable: true })
-  fcm_token: string;
+  @OneToMany(() => Todo, (todo) => todo.owner)
+  todos: Todo[];
 
   @Column()
   @Exclude()

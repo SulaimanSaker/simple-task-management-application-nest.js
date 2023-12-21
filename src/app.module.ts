@@ -8,6 +8,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CustomClassSerializerInterceptor } from './shared/interceptors/class-serializer.interceptor';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './shared/configs/constants';
+import { TodoModule } from './todos/todo.module';
+import { Todo } from './todos/entities/todo.entity';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { jwtConstants } from './shared/configs/constants';
       username: 'root',
       password: '123456789',
       database: 'hss1',
-      entities: [User],
+      entities: [User, Todo],
       synchronize: true,
     }),
     UsersModule,
+    TodoModule,
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
