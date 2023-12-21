@@ -23,7 +23,8 @@ export class TodoController {
   @Get()
   async findAll(@Request() req) {
     const todos = await this.todoService.getAllTodo(req.user.id);
-    return { todos };
+
+    return todos;
   }
 
   @Get(':id')

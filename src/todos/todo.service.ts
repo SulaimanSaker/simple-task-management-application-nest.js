@@ -25,7 +25,6 @@ export class TodoService {
   async getOneTodo(ownerId: string, id: string) {
     const todo = await this.todoRepo.findOne({
       where: { id, ownerId: ownerId },
-      relations: ['tasks', 'owner'],
     });
 
     if (!todo) {
